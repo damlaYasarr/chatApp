@@ -1,14 +1,20 @@
 
-
+const db =require('./../backend/helpers/db')
 const users = [];
 
 // Join user to chat
-function userJoin(id, username, room) {
-  const user = { id, username, room };
 
-  users.push(user);
-
-  return user;
+function userJoin(id, name, room) {
+  try{
+    const user = { id, name, room };
+   
+    users.push(user);
+  
+    return user;
+  }catch(error){
+    console.log(error)
+  }
+ 
 }
 
 // Get current user

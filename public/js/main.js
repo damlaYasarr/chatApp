@@ -4,17 +4,17 @@ const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 
 // Get username and room from URL
-const { username, room } = Qs.parse(location.search, {
+const { name, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
 
 const socket = io();
 
 // Join chatroom
-socket.emit('joinRoom', { username, room });
+socket.emit("joinRoom", { name, room });
 
-// Get room and users
-socket.on('roomUsers', ({ room, users }) => {
+//Get room and users
+socket.on("roomUsers", ({ room, users }) => {
   outputRoomName(room);
   outputUsers(users);
 });
@@ -34,16 +34,17 @@ chatForm.addEventListener('submit', (e) => {
 
   // Get message text
   let msg = e.target.elements.msg.value;
+  
 
   msg = msg.trim();
 
   if (!msg) {
     return false;
   }
-
+  console.log("benden giden msg",msg)
   // Emit message to server
-  socket.emit('chatMessage', msg);
-
+  socket.emit('chatmessage', msg);
+ 
   // Clear input
   e.target.elements.msg.value = '';
   e.target.elements.msg.focus();
@@ -55,8 +56,8 @@ function outputMessage(message) {
   div.classList.add('message');
   const p = document.createElement('p');
   p.classList.add('meta');
-  p.innerText = message.username;
-  p.innerHTML += `<span>${message.time}</span>`;
+  p.innerText = 'user';
+  p.innerHTML += `<span>00:00</span>`;
   div.appendChild(p);
   const para = document.createElement('p');
   para.classList.add('text');
