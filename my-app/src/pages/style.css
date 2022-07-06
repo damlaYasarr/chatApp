@@ -1,0 +1,24 @@
+.verifyPage{
+  
+ position: absolute;
+ top: 0;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ background-color: aquamarine;
+}
+.verifyinfos{
+    display: flex;
+    flex-direction: column;  
+    align-items: center;
+    margin-top: 90px;
+}
+.btn-verify button{
+ 
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid blue;
+    font-weight: bold;
+}
