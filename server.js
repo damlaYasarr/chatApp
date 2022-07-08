@@ -9,7 +9,7 @@ const client =require('./backend/helpers/db');
 const routes=require('./backend/router/index')
 
 //set static folder
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'my-app')))
 
 app.use(cors());
 app.use(bodyParser.json());

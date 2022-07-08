@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css'
 import Register from './components/register/Register';
 import Verify from './pages/Verify';
+import Chat from './components/chatPanel/Chat';
 
 function App() {
   return (<Router>
@@ -10,7 +11,7 @@ function App() {
     <Switch>
       <Route exact path='/damla'> <Register /> </Route>
       <Route exact path='/verify'> <Verify/></Route>
-
+      <Route exact path='/chat'> <Chat/></Route>
       <Route exact path="/">
         <Login />
 
