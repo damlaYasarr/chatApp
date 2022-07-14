@@ -4,7 +4,8 @@ import './App.css'
 import Register from './components/register/Register';
 import Verify from './pages/Verify';
 import Chat from './components/chatPanel/Chat';
-
+import { createBrowserHistory } from "history";
+export  const history=createBrowserHistory();
 function App() {
   return (<Router>
 

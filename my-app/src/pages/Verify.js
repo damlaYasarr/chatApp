@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
 import { notify } from 'react-notify-toast'
-import RegisterServices from "../services/RegisterServices";
+import { register } from "../services/LoginServices";
 import './style.css'
 class Verify extends Component{ 
  state ={
@@ -9,15 +9,15 @@ class Verify extends Component{
  }
  componentDidMount = () => {
     //const { id } = this.props.match.params
-    let registerServices=new RegisterServices();
+
     
-    fetch(registerServices.verify("1"))
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ confirming: false })
-        notify.show(data.msg)
-      })
-      .catch(err => console.log(err))
+   //  fetch(.verify("1"))
+   //    .then(res => res.json())
+   //    .then(data => {
+   //      this.setState({ confirming: false })
+   //      notify.show(data.msg)
+   //    })
+   //    .catch(err => console.log(err))
   }
      render(){ 
     return (

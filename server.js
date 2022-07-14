@@ -11,7 +11,12 @@ const routes=require('./backend/router/index')
 //set static folder
 app.use(express.static(path.join(__dirname, 'my-app')))
 
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => callback(null, true),
+    credentials: true
+  })
+);
 app.use(bodyParser.json());
 client.connect(() =>{
   console.log("db bağlndı")

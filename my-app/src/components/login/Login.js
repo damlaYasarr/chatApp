@@ -1,71 +1,69 @@
 import './login.css'
 import * as React from "react";
-import { useState, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { useFormik } from 'formik'
-import * as yup from "yup";
-import LoginServices from '../../services/LoginServices';
-const Login = () => {
-  const [loading, setLoading] = useState(false);
-  const schema = yup.object({
-
-    email: yup
-      .string()
-      .email()
-      .required('Please Enter your Email'),
-    password: yup
-      .string()
-      .required('Please Enter your password')
-
-
-  });
-  let loginservice = new LoginServices();
-
-  const initialValue = {
-    email: '',
-    password: '',
+import PropTypes from 'prop-types'
+import { Link, withRouter } from 'react-router-dom';
+import  { login } from '../../services/LoginServices';
+//leave the room is logout
+class Login extends React.Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired
   }
-  const { handleSubmit, handleChange, errors } = useFormik({
-    initialValues: initialValue,
-    validationSchema: schema,
-    onSubmit: values => {
-
-      loginservice.add(values)
-      // if(loginservice.isActive(values.email)){
-      //     console.log("aktif")
-      //     setLoading(true)
-      // }
-      setLoading(true)
-      console.log(values);
-      console.log("bu email", values.email)
+    constructor(){
+      
+      super()
+        this.state={
+          email:'',
+          password:'',
+          errors:{}
+        }
+      this.onChange=this.onChange.bind(this)
+      this.onSubmit=this.onSubmit.bind(this)
     }
-  })
 
-  if (loading) {
-
-
-    return <Redirect to="/chat" />;
-  }
+   
+   
+    onChange(e){
+      this.setState({[e.target.name]: e.target.value})
+    }
+     
+    onSubmit(e){
+      e.preventDefault(); 
+      
+      const user={
+        email:this.state.email,
+        password:this.state.password
+      }
+      login(user).then(res=>{
+        
+        localStorage.setItem('users', JSON.stringify(this.state));
+        if(res){
+          this.props.history.push('/chat')
+        }
+      })
+    }
+   render(){ 
+   
   return (
     <div className='header'>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={this.onSubmit}>
         <div className='loginbox'>
           <div className='logininput' >
             <input
-              id='email'
+              type='email'
               name='email'
-
-              onChange={handleChange}
+              value={this.state.email}
+              onChange={this.onChange}
               placeholder='Email enter' /></div>
-          <div>{errors.email ? errors.email : null}</div>
+          <div></div>
           <div className='logininput' >
             <input
-              id='password'
+              type='password'
               name='password'
-              onChange={handleChange}
+              value={this.state.password}
+              onChange={this.onChange}
               placeholder='password' /></div>
-          <div>{errors.password ? errors.password : null}</div>
+          <div></div>
           <Link to='damla'>üye değil misin</Link>
 
           <div className='logininput' >
@@ -84,5 +82,6 @@ const Login = () => {
 
     </div>
   )
-}
-export default Login
+}}
+
+export default withRouter(Login)
